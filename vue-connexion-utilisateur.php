@@ -1,3 +1,5 @@
+<?php require_once 'controleur-connexion-utilisateur.php'; ?>
+
 <form method=POST>
 	<p>
 		<h2>S'enregistrer</h2>
@@ -15,4 +17,4 @@
 		<label for="mdp2">Mot de passe</label><input type="password" name="mdp" id="mdp2" /><br />
 		<input type="submit" name="authentifier_utilisateur" class="submit" />
 	</p>
-</form>$
+</form>

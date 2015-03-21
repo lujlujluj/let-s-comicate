@@ -7,16 +7,16 @@
 	
 	<?php
 
-	require_once 'bdd.php';
+	require_once 'modele.php';
 
 	$bdd = connexion_bdd();
-
-	require_once 'controleur.php';
 
 	?>
 </head>
 <body>
-	<?php require_once 'header.php'; ?>
+	<?php require_once 'vue-header.php'; ?>
+
+	<?php require_once 'vue-connexion-utilisateur.php'; ?>
 
 	<?php afficher_comic($bdd, $comic, $case) ?>
 </body>
