@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>YO</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-
+	
 	<?php
 
 	require_once 'bdd.php';
@@ -18,9 +18,6 @@
 <body>
 	<?php require_once 'header.php'; ?>
 
-	<p>
-		<h2>Les 3 meilleurs comics</h2>
-		<?php afficher_meilleurs_comics($bdd, 3); ?>
-	</p>
+	<?php afficher_comic($bdd, $comic, $case) ?>
 </body>
 </html>
