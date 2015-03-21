@@ -1,1 +1,1 @@
-<h1>Let's comicate !</h1>
+<h1><a href="index.php">Let's comicate !</a></h1>

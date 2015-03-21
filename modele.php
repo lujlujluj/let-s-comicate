@@ -125,10 +125,12 @@ function afficher_meilleurs_comics($bdd, $nombre) {
 	$req->execute();
 
 	while ($donnees = $req->fetch()) {
-	
-		echo '<p>' . $donnees['titre'] . ' --- ' . $donnees['nb_vues'] . ' vues --- ' . $donnees['likes'] . ' likes --- auteur : ' . $donnees['pseudo'] . '</p>';
 
-		afficher_case($bdd, $donnees['id'], $donnees['longueur']-1);
+		$derniere_case = $donnees['longueur']-1;
+	
+		echo '<p><a href="vue-comic.php?comic=' .  $donnees['id'] . '&case=' . $derniere_case . '">' . $donnees['titre'] . '</a> --- ' . $donnees['nb_vues'] . ' vues --- ' . $donnees['likes'] . ' likes --- auteur : ' . $donnees['pseudo'] . '</p>';
+
+		afficher_case($bdd, $donnees['id'], $derniere_case);
 
 	}
 
@@ -137,20 +139,24 @@ function afficher_meilleurs_comics($bdd, $nombre) {
 
 }
 
-// Afficher un comic
+// Recuperer un comic
 
-function afficher_comic($bdd, $comic, $case) {
+function recuperer_comic($bdd, $comic) {
 
-	$req = $bdd->prepare('SELECT co.titre, co.nb_vues, co.likes, co.date_creation, u.pseudo FROM comic co, utilisateur u WHERE co.auteur = u.id AND co.id = ?');
+	$req = $bdd->prepare('SELECT co.titre, co.nb_vues, co.likes, co.date_creation, co.longueur, u.pseudo FROM comic co, utilisateur u WHERE co.auteur = u.id AND co.id = ?');
 	$req->execute(array($comic));
 
-	if ($donnees = $req->fetch())
-		echo '<p>' . $donnees['titre'] . ' --- ' . $donnees['nb_vues'] . ' vues --- ' . $donnees['likes'] . ' likes --- ' . $donnees['date_creation'] . ' --- auteur : ' . $donnees['pseudo'] . '</p>';
+	if ($donnees = $req->fetch()) {
+		
+		$req->closeCursor();
+		return $donnees;
 
-	afficher_case($bdd, $comic, $case);
+	} else {
 
-	$req->closeCursor();
-	return 1;
+		$req->closeCursor();
+		return 0;
+
+	}
 
 }
 

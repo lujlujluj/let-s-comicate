@@ -18,9 +18,7 @@
 
 	<?php require_once 'vue-connexion-utilisateur.php'; ?>
 
-	<p>
-		<h2>Les 3 meilleurs comics</h2>
-		<?php afficher_meilleurs_comics($bdd, 3); ?>
-	</p>
+	<h2>Les 3 meilleurs comics</h2>
+	<?php afficher_meilleurs_comics($bdd, 3); ?>
 </body>
 </html>
