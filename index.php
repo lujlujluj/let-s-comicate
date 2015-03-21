@@ -58,49 +58,9 @@
 		</p>
 	</form>
 
-	<form method=POST>
-		<p>
-			<h2>Nouveau comic</h2>
-			<label for="titre">Titre</label><input type="text" name="titre" id="titre" /><br />
-			<label for="libre">Comic libre</label><input type="checkbox" name="libre" id="libre" /><br />
-			<input type="submit" name="creer_comic" class="submit" />
-		</p>
-	</form>
-
-	<form method=POST>
-		<p>
-			<h2>Nouvelle case</h2>
-			<input type="submit" name="creer_case" class="submit" />
-		</p>
-	</form>
-
-	<form method=POST>
-		<p>
-			<h2>Liker comic</h2>
-			<input type="submit" name="liker_comic" class="submit" />
-		</p>
-	</form>
-
-	<form method=POST>
-		<p>
-			<h2>Liker case</h2>
-			<input type="submit" name="liker_case" class="submit" />
-		</p>
-	</form>
-
 	<p>
-		<h2>Comic n°1</h2>
-		<?php afficher_comic($bdd, 1); ?>
-		<p><strong>Commentaires :</strong></p>
-		<?php afficher_commentaires($bdd, 1); ?>
+		<h2>Les 3 meilleurs comics</h2>
+		<?php afficher_meilleurs_comics($bdd, 3); ?>
 	</p>
-	
-	<form method=POST>
-		<p>
-			<h2>Poster un commentaire</h2>
-			<textarea name="contenu" id="contenu"></textarea><br />
-			<input type="submit" name="nouveau_commentaire" class="submit" />
-		</p>
-	</form>
 </body>
 </html>
