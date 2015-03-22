@@ -1,24 +1,32 @@
-<!doctype html>
-<html lang="fr">
-<head>
-	<meta charset="utf-8">
-	<title>YO</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+<?php
 
-	<?php
+if (isset($_GET['p'])) {
 
-	require_once 'modele.php';
+	switch ($_GET['p']) {
 
-	$bdd = connexion_bdd();
+		case 'c':
+			require_once 'php/vue/vue-comic.php';
+			break;
 
-	?>
-</head>
-<body>
-	<?php require_once 'vue-header.php'; ?>
+		case 'v':
+			require_once 'php/vue/vue-vote.php';
+			break;
 
-	<?php require_once 'vue-connexion-utilisateur.php'; ?>
+		case 'd':
+			require_once 'php/controleur/controleur-deconnexion.php';
+			break;
 
-	<h2>Les 3 meilleurs comics</h2>
-	<?php afficher_meilleurs_comics($bdd, 3); ?>
-</body>
-</html>
+		case 'm':
+			require_once 'php/controleur/controleur-mise_a_jour.php';
+			break;
+
+		default:
+			require_once 'php/vue/vue-accueil.php';
+			break;
+
+	}
+
+} else
+	require_once 'php/vue/vue-accueil.php'; 
+
+?>
