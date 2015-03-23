@@ -20,7 +20,11 @@
 
 	<?php require_once 'php/vue/vue-module-utilisateur.php'; ?>
 
-	<h2>Les 10 meilleurs comics</h2>
-	<?php afficher_meilleurs_comics($bdd, 10); ?>
+	<section>
+
+		<h2>Les 10 meilleurs comics</h2>
+		<?php afficher_meilleurs_comics($bdd, 10); ?>
+	
+	</section>
 </body>
 </html>

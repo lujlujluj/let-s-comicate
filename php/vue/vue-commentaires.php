@@ -1,19 +1,23 @@
-<h2>Commentaires</h2>
+<div id="commentaires">
 
-<?php afficher_commentaires($bdd, $comic); ?>
+	<h2>Commentaires</h2>
 
-<?php
-if ($connecte) {
+	<?php afficher_commentaires($bdd, $comic); ?>
 
-	?>
-	<form method=POST>
-		<p>
-			<h2>Poster un commentaire</h2>
-			<textarea name="contenu" id="contenu"></textarea><br />
-			<input type="submit" name="nouveau_commentaire" class="submit" />
-		</p>
-	</form>
 	<?php
+	if ($connecte) {
 
-}
-?>
+		?>
+		<form method=POST>
+			<p>
+				<h2>Poster un commentaire</h2>
+				<textarea name="contenu" id="contenu"></textarea><br />
+				<input type="submit" name="nouveau_commentaire" class="submit" />
+			</p>
+		</form>
+		<?php
+
+	}
+	?>
+
+</div>

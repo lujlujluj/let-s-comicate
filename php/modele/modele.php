@@ -71,7 +71,7 @@ function creer_comic($bdd, $titre, $libre, $auteur) {
 
 // Créer une nouvelle case
 
-function creer_case($bdd, $comic, $auteur) {
+function creer_case($bdd, $comic, $auteur, $nom_fichier) {
 
 	$req = $bdd->prepare('SELECT longueur, libre FROM comic WHERE id = ?');
 	$req->execute(array($comic));
@@ -92,8 +92,8 @@ function creer_case($bdd, $comic, $auteur) {
 
 	}
 
-	$req = $bdd->prepare('INSERT INTO caze (position, date_creation, comic, auteur) VALUES (?, NOW(), ?, ?)');
-	$req->execute(array($position, $comic, $auteur));
+	$req = $bdd->prepare('INSERT INTO caze (position, date_creation, comic, auteur, image) VALUES (?, NOW(), ?, ?, ?)');
+	$req->execute(array($position, $comic, $auteur, $nom_fichier));
 
 	$req->closeCursor();
 	return $position_redirection;
@@ -145,10 +145,10 @@ function afficher_meilleurs_comics($bdd, $nombre) {
 
 		$derniere_case = $donnees['longueur'] - 1;
 	
-		echo '<p><a href="index.php?p=c&comic=' .  $donnees['id'] . '&case=' . $derniere_case . '">' . $donnees['titre'] . '</a> --- ' . $donnees['likes'] . ' likes --- auteur : ' . $donnees['pseudo'] . '</p>';
+		echo '<p class="titre"><a href="index.php?p=c&comic=' .  $donnees['id'] . '&case=' . $derniere_case . '">' . $donnees['titre'] . '</a> --- ' . $donnees['likes'] . ' likes --- auteur : ' . $donnees['pseudo'] . '</p>';
 
 		if ($donnees_case = recuperer_case($bdd, $donnees['id'], $derniere_case))
-			echo '<p>Case n°' . $donnees_case['position'] . ' --- ' . $donnees_case['votes'] . ' votes --- ' . $donnees_case['date_creation'] . ' --- auteur : ' . $donnees_case['pseudo'] . '</p>';
+			echo '<p class="case"><img src="img/' . $donnees_case['image'] . '" alt="" /><br />Case n°' . $donnees_case['position'] . ' --- ' . $donnees_case['votes'] . ' votes --- ' . $donnees_case['date_creation'] . ' --- auteur : ' . $donnees_case['pseudo'] . '</p>';
 
 	}
 
@@ -182,7 +182,7 @@ function recuperer_comic($bdd, $comic) {
 
 function recuperer_case($bdd, $comic, $position) {
 
-	$req = $bdd->prepare('SELECT c.position, c.votes, c.date_creation, u.pseudo FROM caze c, utilisateur u WHERE c.comic = ? AND c.auteur = u.id AND c.position = ? ORDER BY c.votes DESC LIMIT 1');
+	$req = $bdd->prepare('SELECT c.id, c.position, c.votes, c.date_creation, c.image, u.pseudo FROM caze c, utilisateur u WHERE c.comic = ? AND c.auteur = u.id AND c.position = ? ORDER BY c.votes DESC LIMIT 1');
 	$req->execute(array($comic, $position));
 
 	if ($donnees = $req->fetch()) {
@@ -220,7 +220,7 @@ function afficher_commentaires($bdd, $comic) {
 
 	while ($donnees = $req->fetch()) {
 		echo '<p>' . $donnees['contenu'] . '</p>';
-		echo '<p>auteur : ' . $donnees['pseudo'] . ' --- ' . $donnees['date_heure'] . '</p>';
+		echo '<p class="commentaire">auteur : ' . $donnees['pseudo'] . ' --- ' . $donnees['date_heure'] . '</p>';
 
 	}
 
@@ -250,9 +250,9 @@ function mise_a_jour($bdd) {
 
 // Récupérer cases potentielles
 
-function recuperer_cases_potentielle($bdd, $comic) {
+function recuperer_cases_potentielles($bdd, $comic) {
 
-	$req = $bdd->prepare('SELECT ca.id, ca.votes, ca.date_creation, u.pseudo
+	$req = $bdd->prepare('SELECT ca.id, ca.votes, ca.date_creation, ca.image, u.pseudo
 						  FROM caze ca, comic co, utilisateur u
 						  WHERE ca.position = co.longueur
 						  AND ca.auteur = u.id

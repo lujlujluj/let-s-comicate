@@ -6,8 +6,14 @@ if (isset($_GET['comic']) && isset($_GET['case'])) {
 	$position = $_GET['case'];
 
 	$redirect = 'location: index.php?p=c&comic=' . $comic . '&case=' . $position;
+	
 
-	require_once 'php/controleur/controleur-comic-vote.php';
+	require_once 'php/controleur/controleur-nouvelle-case.php';
+
+	require_once 'php/controleur/controleur-likes.php';
+
+	require_once 'php/controleur/controleur-commentaires.php';
+	
 
 	$donnees = recuperer_comic($bdd, $comic);
 	

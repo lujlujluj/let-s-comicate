@@ -17,7 +17,7 @@ if (isset($_GET['p'])) {
 			break;
 
 		case 'm':
-			require_once 'php/controleur/controleur-mise_a_jour.php';
+			require_once 'php/controleur/controleur-mise-a-jour.php';
 			break;
 
 		default:
