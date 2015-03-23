@@ -23,7 +23,6 @@ function connexion_bdd() {
 }
 
 
-
 // Enregistrer nouvel utilisateur
 
 function enregistrer_utilisateur($bdd, $mail, $mdp, $pseudo) {
@@ -117,6 +116,7 @@ function liker_case($bdd, $comic, $position) {
 
 	$req = $bdd->prepare('UPDATE caze SET votes = votes + 1 WHERE comic = ? AND position = ?');
 	$req->execute(array($comic, $position));
+
 	$req->closeCursor();
 	return 1;
 
@@ -234,17 +234,16 @@ function afficher_commentaires($bdd, $comic) {
 function mise_a_jour($bdd) {
 
 	return $bdd->exec('UPDATE comic
-				 SET longueur = longueur + 1
-				 WHERE id IN
-				 	 (SELECT * FROM
-						 (SELECT ca.comic
-						  FROM caze ca, comic co
-						  WHERE ca.position = co.longueur
-						  AND ca.comic = co.id
-						  GROUP BY ca.comic
-						  HAVING COUNT(ca.id) > 0)
-					  AS temp)
-				 AND libre = 0');
+					   SET longueur = longueur + 1
+					   WHERE id IN
+				 	   	   (SELECT * FROM
+						   	   (SELECT ca.comic
+						  	    FROM caze ca, comic co
+						  	    WHERE ca.position = co.longueur
+						  	    AND ca.comic = co.id
+						  	    GROUP BY ca.comic)
+					  	   AS temp)
+				 	   AND libre = 0');
 
 }
 
