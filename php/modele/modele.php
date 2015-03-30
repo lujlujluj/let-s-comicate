@@ -27,6 +27,8 @@ function connexion_bdd() {
 
 function enregistrer_utilisateur($bdd, $mail, $mdp, $pseudo) {
 
+	$mdp = password_hash($mdp, PASSWORD_BCRYPT);
+
 	$req = $bdd->prepare('INSERT INTO utilisateur (mail, mdp, pseudo) VALUES (?, ?, ?)');
 	$req->execute(array($mail, $mdp, $pseudo));
 	$req->closeCursor();
@@ -38,15 +40,17 @@ function enregistrer_utilisateur($bdd, $mail, $mdp, $pseudo) {
 
 function authentifier_utilisateur($bdd, $mail, $mdp) {
 
-	$req = $bdd->prepare('SELECT id FROM utilisateur WHERE mail = ? AND mdp = ?;');
-	$req->execute(array($mail, $mdp));
+	$req = $bdd->prepare('SELECT id, mdp FROM utilisateur WHERE mail = ?');
+	$req->execute(array($mail));
 
-	if ($req->rowCount() == 1) {
-
-		$donnees = $req->fetch();
+	if ($donnees = $req->fetch()) {
 
 		$req->closeCursor();
-		return $donnees['id'];
+
+		if (password_verify($mdp, $donnees['mdp']))
+			return $donnees['id'];
+		else
+		    return 0;
 
 	} else {
 
