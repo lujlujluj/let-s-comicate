@@ -11,17 +11,20 @@ if (isset($_GET['comic']) && isset($_GET['case'])) {
 	require_once 'php/controleur/controleur-nouvelle-case.php';
 
 	require_once 'php/controleur/controleur-likes.php';
-
-	require_once 'php/controleur/controleur-commentaires.php';
 	
 
 	$donnees = recuperer_comic($bdd, $comic);
 	
 	if ($position == -1)
 		$comic_vide = true;
-	else
-		$donnees_case = recuperer_case($bdd, $comic, $position);
+	else {
 
+		$donnees_case = recuperer_case($bdd, $comic, $position);
+		require_once 'php/controleur/controleur-commentaires.php';
+	
+	}
+
+	
 }
 
 ?>

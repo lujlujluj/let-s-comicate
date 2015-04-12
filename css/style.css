@@ -110,3 +110,34 @@ section, #commentaires {
 	margin-bottom: 45px;
 
 }
+
+.case .contenu, .case .commentaires {
+
+	display: inline-block;
+	vertical-align: top;
+
+}
+
+.case .contenu {
+
+	width: 600px;
+
+}
+
+.case .commentaires {
+
+	margin-left: 40px;
+
+}
+
+.case .commentaires .commentaire {
+
+	width: 300px;
+
+}
+
+.systeme {
+
+	color: #b00;
+
+}

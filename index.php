@@ -12,6 +12,10 @@ if (isset($_GET['p'])) {
 			require_once 'php/vue/vue-vote.php';
 			break;
 
+		case 'a':
+			require_once 'php/vue/vue-auteur.php';
+			break;
+
 		case 'd':
 			require_once 'php/controleur/controleur-deconnexion.php';
 			break;

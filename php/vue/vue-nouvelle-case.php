@@ -9,6 +9,7 @@ if ($connecte) {
 		<form method=POST enctype="multipart/form-data">
 			<p>
 				<input type="file" name="image" /><br />
+				<textarea name="texte" id="texte"></textarea><br />
 				<input type="submit" name="creer_case" class="submit" />
 			</p>
 		</form>

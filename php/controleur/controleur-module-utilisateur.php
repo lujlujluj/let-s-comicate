@@ -6,6 +6,10 @@ if (isset($_POST['enregistrer_utilisateur'])) {
 
 	enregistrer_utilisateur($bdd, $_POST['mail'], $_POST['mdp'], $_POST['pseudo']);
 
+	header('location: index.php');
+
+	exit();
+
 }
 
 // Authentifier utilisateur

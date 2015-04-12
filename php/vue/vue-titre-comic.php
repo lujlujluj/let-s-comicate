@@ -21,6 +21,6 @@
 	?>
 
 	<p>Créé le <?php echo $donnees['date_creation']; ?></p>
-	<p>Auteur : <?php echo $donnees['pseudo']; ?></p>
+	<p>Auteur : <a href="index.php?p=a&auteur=<?php echo $donnees['id']; ?>"><?php echo $donnees['pseudo']; ?></a></p>
 
 </div>
